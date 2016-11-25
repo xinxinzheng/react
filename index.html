@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<script type="text/javascript" src="js/react.js"></script>
+<script type="text/javascript" src="js/JSXTransformer.js"></script>
+<script type="text/javascript" src="js/jsx.js"></script>
+</head>
+<body>
+	<div id="example"></div>
+    <script>
+    	var colorBox = React.createElement({
+    		getDefaultProps:function(){
+
+    		},
+    		getInitialState:function(){
+
+    		},
+    		componentDidMount:function(){
+
+    		},
+    		componentsWillMount:function(){
+
+    		},
+    		ComponentsWillUnmount:function(){
+    			
+    		},
+    		shouldComponentUpdate:function(){
+
+    		},
+    		componentWillUpdate:function(){
+
+    		},
+    		compomentDidUpdate:function(){
+
+    		},
+    		componentWillReceiveProps: function(newProps){
+
+    		},
+    		render:function(){
+    			var colorBoxStyle ={
+    				width:150,
+    				height:200,
+    				backgroundColor:white
+    			}, 
+    			colorStyle = {
+    				height:160,
+    				backgroundColor:this.props.bgcolor,
+    			};
+    			return(
+    				<div className={colorBoxStyle}>
+    					<div className={colorStyle}></div>
+    					<label>{this.props.bgcolor}</label>
+    				</div>
+    			);
+    		}
+    	});
+    	React.render(<colorBox bgcolor="orange" />,document.queryselector("#example"));
+    </script>
+</body>
+</html>

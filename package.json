@@ -1,0 +1,12 @@
+{
+  "name": "react-demo",
+  "version": "1.0.0",
+  "description": "react test",
+  "dependencies": {
+    "babel": "^6.5.2",
+    "babel-core": "^6.18.2"
+  },
+  "devDependencies": {
+    "react": "^15.4.1"
+  }
+}
