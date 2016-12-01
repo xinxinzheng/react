@@ -1,66 +1,125 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<title>Examples</title>
-<meta name="description" content="">
-<meta name="keywords" content="">
+<title>ReactJS</title>
 <link href="" rel="stylesheet">
+<style type="text/css">
+    #example{
+        position:relative;
+    }
+</style>
 <script type="text/javascript" src="js/react.js"></script>
-<script type="text/javascript" src="js/JSXTransformer.js"></script>
-<script type="text/javascript" src="js/jsx.js"></script>
+<script type="text/javascript" src="js/react-dom.js"></script>
+<script type="text/javascript" src="js/browser.min.js"></script>
 </head>
 <body>
 	<div id="example"></div>
-    <script>
-    	var colorBox = React.createElement({
-    		getDefaultProps:function(){
-
-    		},
-    		getInitialState:function(){
-
-    		},
-    		componentDidMount:function(){
-
-    		},
-    		componentsWillMount:function(){
-
-    		},
-    		ComponentsWillUnmount:function(){
-    			
-    		},
-    		shouldComponentUpdate:function(){
-
-    		},
-    		componentWillUpdate:function(){
-
-    		},
-    		compomentDidUpdate:function(){
-
-    		},
-    		componentWillReceiveProps: function(newProps){
-
-    		},
+    <script type="text/babel">
+        var ColorBox = React.createClass({
     		render:function(){
-    			var colorBoxStyle ={
-    				width:150,
-    				height:200,
-    				backgroundColor:white
-    			}, 
-    			colorStyle = {
-    				height:160,
+    			var colorStyle = {
+                    width:100,
+    				height:100,
+                    boxShadow:'0 0 15px 0px black',
     				backgroundColor:this.props.bgcolor,
+                    margin:'0px auto'
+                    
     			};
     			return(
-    				<div className={colorBoxStyle}>
-    					<div className={colorStyle}></div>
-    					<label>{this.props.bgcolor}</label>
-    				</div>
+    				<div style={colorStyle}></div>
     			);
     		}
     	});
-    	React.render(<colorBox bgcolor="orange" />,document.queryselector("#example"));
+
+        var InputBox = React.createClass({
+            changeColor:function(){
+                this.props.stateChange({
+                    color : this._input.value,
+                    type:'change'
+                }); 
+            },
+            render:function(){
+                var DivStyle = {
+                    position:'absolute',
+                    bottom:'0px'
+                },
+                inputStyle = {
+                    lineHeight:"30px",
+                    border:"1px solid #D9DDE3",
+                    borderRadius:'5px'
+                } , 
+                buttonStyle = {
+                    height:30,
+                    border:"1px solid #D9DDE3",
+                    borderRadius:'5px',
+                    background:'#C2CF8A',
+                    marginLeft:'5px'
+                };
+                return(
+                    <div style={DivStyle}>
+                        <input style={inputStyle} type="text" ref={(ele) => {
+                            this._input = ele;
+                        }} />
+                        <button style={buttonStyle} onClick={this.changeColor} >Change</button>
+                    </div>
+                    );
+            }
+        });
+
+        var Outer = React.createClass({
+            childStateChange:function(obj){
+                console.log(obj,'对象');
+                this.setState(obj);
+            },
+            getDefaultProps:function(){
+
+            },
+            getInitialState:function(){
+                return {color:this.props.bgcolor,type:'change'};
+            },
+            componentDidMount:function(){
+                console.log('componentDidMount');
+            },
+            componentsWillMount:function(){
+                console.log('componentsWillMount');
+            },
+            ComponentsWillUnmount:function(){
+                console.log('ComponentsWillUnmount');
+            },
+            shouldComponentUpdate:function(nextProps, nextState){
+                console.log(nextState,'shouldUpdate');
+                if(nextState.color == "black")
+                    return false;
+                else
+                    return true;
+            },
+            componentWillUpdate:function(newProps, newState){
+                console.log(newState,'willUpdate');
+            },
+            compomentDidUpdate:function(currentProps, currentState){
+                console.log(currentState,'didUpdate');
+            },
+            componentWillReceiveProps: function(newProps){
+
+            },
+            render:function(){
+                var divStyle = {
+                    margin:'50px 200px',
+                    height:200,
+                    width:200,
+                    display:'flex',
+                };
+                console.log(this.state);
+                return(
+                    <div style={divStyle} >
+                    <ColorBox bgcolor={this.state.color} />
+                    <InputBox stateChange = {this.childStateChange}/>
+                    </div>);
+            }
+
+        });
+
+    	ReactDOM.render(<Outer bgcolor="orange" /> , document.getElementById("example"));
     </script>
 </body>
 </html>
